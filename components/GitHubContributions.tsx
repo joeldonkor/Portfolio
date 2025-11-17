@@ -1,12 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function GitHubContributions() {
   // Mock contribution data - replace with real data from GitHub API
-  const contributions = Array.from({ length: 52 }, () =>
-    Array.from({ length: 7 }, () => Math.floor(Math.random() * 5))
+  const [contributions, setContributions] = useState<number[][]>(() =>
+    Array.from({ length: 52 }, () => Array.from({ length: 7 }, () => 0))
   );
+
+  useEffect(() => {
+    // Generate random data only on the client after hydration
+    setContributions(
+      Array.from({ length: 52 }, () =>
+        Array.from({ length: 7 }, () => Math.floor(Math.random() * 5))
+      )
+    );
+  }, []);
 
   const stats = [
     { label: "Followers", value: "118", icon: "users" },
